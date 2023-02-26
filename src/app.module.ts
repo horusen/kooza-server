@@ -4,7 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import configuration from 'config/configuration';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BusinessModule } from './business/business.module';
 
 @Module({
   imports: [
@@ -17,11 +16,13 @@ import { BusinessModule } from './business/business.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('database.host'),
-        port: +configService.get('database.port'),
-        username: configService.get('database.username'),
-        password: configService.get('database.password'),
-        database: configService.get('database.database'),
+        host: process.env.PGHOST || configService.get('database.host'),
+        port: +process.env.PGPORT || +configService.get('database.port'),
+        username: process.env.PGUSER || configService.get('database.username'),
+        password:
+          process.env.PGPASSWORD || configService.get('database.password'),
+        database:
+          process.env.PGDATABASE || configService.get('database.database'),
         entities: [],
         synchronize: true,
         autoLoadEntities: true,
