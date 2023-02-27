@@ -1,11 +1,18 @@
+import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { CreateBusinessTypeDto } from './dto/create-business-type.dto';
 import { UpdateBusinessTypeDto } from './dto/update-business-type.dto';
+import { BusinessType } from './entities/business-type.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BusinessTypeService {
+  constructor(
+    @InjectRepository(BusinessType) public repo: Repository<BusinessType>,
+  ) {}
+
   create(createBusinessTypeDto: CreateBusinessTypeDto) {
-    return 'This action adds a new businessType';
+    return this.repo.save(createBusinessTypeDto);
   }
 
   findAll() {
