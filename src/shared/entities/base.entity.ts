@@ -1,5 +1,3 @@
-import { EntityTimestamp } from './timestamp.entity';
-import { TimestampColumn } from 'src/shared/decorators/timestamped-column';
 import {
   CreateDateColumn,
   DeleteDateColumn,
@@ -11,6 +9,12 @@ export abstract class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @TimestampColumn()
-  timesptamps: EntityTimestamp;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt: Date;
 }

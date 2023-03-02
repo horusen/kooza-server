@@ -4,7 +4,6 @@ import { BaseEntity } from 'src/shared/entities/base.entity';
 import {
   Column,
   Entity,
-  JoinColumn,
   JoinTable,
   JoinTableOptions,
   ManyToMany,
@@ -14,12 +13,8 @@ import { BusinessType } from 'src/business-type/entities/business-type.entity';
 
 @Entity()
 export class Business extends BaseEntity {
-  @JoinColumn({ name: 'business_type_id' })
-  @ManyToOne(() => BusinessType, (business_type) => business_type.id, {
-    nullable: false,
-    eager: true,
-  })
-  businessType: BusinessType;
+  @Column()
+  business_type_id: string;
 
   @Column()
   name: string;
@@ -28,7 +23,7 @@ export class Business extends BaseEntity {
   location: string;
 
   @Column({ nullable: true, unique: true })
-  emailAddress: string;
+  email_address: string;
 
   @Column({ unique: true })
   identifier: string;
@@ -36,11 +31,17 @@ export class Business extends BaseEntity {
   @Column()
   password: string;
 
-  @ManyToMany(() => PaymentMethod)
+  @ManyToOne((type) => BusinessType, (business_type) => business_type.id, {
+    eager: true,
+  })
+  businessType: BusinessType;
+
+  @ManyToMany(() => PaymentMethod, { eager: true, nullable: true })
   @JoinTable({
     joinColumn: 'business_id',
     inverseJoinColumn: 'payment_method_id',
     name: 'payment_method_business',
+    synchronize: false,
   } as JoinTableOptions)
   paymentMethods: PaymentMethod[];
 }

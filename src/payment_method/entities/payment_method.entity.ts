@@ -7,16 +7,18 @@ export class PaymentMethod extends BaseEntity {
   @Column()
   name: string;
 
-  @JoinColumn({ name: 'payment_method_type_id' })
+  @Column()
+  payment_method_type_id: string;
+
   @ManyToOne(
-    () => PaymentMethodType,
-    (paymentMethodType: PaymentMethodType) => paymentMethodType.id,
+    (type) => PaymentMethodType,
+    (paymentMethodType) => paymentMethodType.id,
   )
   paymentMethodtype: PaymentMethodType;
 
   @Column({ name: 'provider_name' })
-  providerName: string;
+  provider_name: string;
 
   @Column({ name: 'account_number' })
-  accountNumber: string;
+  account_number: string;
 }

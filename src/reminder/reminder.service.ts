@@ -1,26 +1,35 @@
+import { PaymentMethod } from './../payment_method/entities/payment_method.entity';
+import { PaymentMethodReminderService } from './payment_method_reminder.service';
 import { Injectable } from '@nestjs/common';
-import { CreateReminderDto } from './dto/create-reminder.dto';
-import { UpdateReminderDto } from './dto/update-reminder.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { PaymentMethodService } from 'src/payment_method/payment_method.service';
+import { BaseService } from 'src/shared/services/base.service';
+import { Repository } from 'typeorm';
+import { Reminder } from './entities/reminder.entity';
 
 @Injectable()
-export class ReminderService {
-  create(createReminderDto: CreateReminderDto) {
-    return 'This action adds a new reminder';
+export class ReminderService extends BaseService<Reminder> {
+  constructor(
+    @InjectRepository(Reminder)
+    public repo: Repository<Reminder>,
+    public paymentMethodService: PaymentMethodService,
+    public paymentMethodReminderService: PaymentMethodReminderService,
+  ) {
+    super(repo);
   }
 
-  findAll() {
-    return `This action returns all reminder`;
-  }
+  async create(createDTO: any) {
+    // const { payment_methods, ...reminderData } = createDTO;
 
-  findOne(id: number) {
-    return `This action returns a #${id} reminder`;
-  }
+    // const reminder = await this.repo.save(reminderData);
 
-  update(id: number, updateReminderDto: UpdateReminderDto) {
-    return `This action updates a #${id} reminder`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} reminder`;
+    // payment_methods.forEach(async (element: PaymentMethod) => {
+    //   await this.paymentMethodReminderService.create({
+    //     payment_method_id: element.id,
+    //     reminder_id: reminder.id,
+    //   });
+    // });
+    // return reminder;
+    return createDTO();
   }
 }

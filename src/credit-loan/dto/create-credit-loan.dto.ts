@@ -1,11 +1,23 @@
-import { IsNotEmpty, IsDate } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsNotEmpty,
+  IsDate,
+  ValidateNested,
+  IsDateString,
+} from 'class-validator';
+import { CreateCustomerDto } from 'src/customer/dto/create-customer.dto';
 export class CreateCreditLoanDto {
   @IsNotEmpty()
-  businessId: string;
+  business_id: string;
 
   @IsNotEmpty()
-  customerId: string;
+  @ValidateNested()
+  @Type(() => CreateCustomerDto)
+  customer: CreateCustomerDto;
 
-  @IsDate()
-  dueDate: Date;
+  @IsNotEmpty()
+  amount: number;
+
+  @IsDateString()
+  due_date: Date;
 }

@@ -1,6 +1,11 @@
 import { IsInt, Validate } from 'class-validator';
-import { BusinessType } from 'src/business-type/entities/business-type.entity';
-import { IsNotEmpty, Allow, MaxLength, IsEmail } from 'class-validator';
+import {
+  IsNotEmpty,
+  Allow,
+  MaxLength,
+  IsEmail,
+  IsOptional,
+} from 'class-validator';
 import { Exists } from 'src/shared/validators/exists.validator';
 import { SameValue } from 'src/shared/validators/same-value.validator';
 
@@ -10,20 +15,22 @@ export class CreateBusinessDto {
   name: string;
 
   @IsNotEmpty()
-  businessTypeId: number;
+  business_type_id: number;
 
   @Allow()
   location: string;
 
+  @IsOptional()
   @IsEmail()
-  emailAddress: string;
+  email_address: string;
 
   @IsNotEmpty()
   identifier: string;
 
-  @SameValue('passwordConfirmation')
+  @IsNotEmpty()
+  @SameValue('password_confirmation')
   password: string;
 
-  @IsNotEmpty()
-  passwordConfirmation: string;
+  @Allow()
+  password_confirmation: string;
 }

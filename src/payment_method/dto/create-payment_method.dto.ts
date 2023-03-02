@@ -4,11 +4,14 @@ export class CreatePaymentMethodDto {
   name: string;
 
   @IsNotEmpty()
-  paymentMethodId: number;
+  payment_method_type_id: number;
 
   @IsNotEmpty()
-  providerName: string;
+  provider_name: string;
 
   @IsNotEmpty()
-  accountNumber: string;
+  account_number: string;
+
+  @IsNotEmpty()
+  business_id: string;
 }

@@ -1,26 +1,17 @@
+import { InjectRepository } from '@nestjs/typeorm';
+import { PaymentMethodType } from './entities/payment_method_type.entity';
 import { Injectable } from '@nestjs/common';
+import { BaseService } from 'src/shared/services/base.service';
 import { CreatePaymentMethodTypeDto } from './dto/create-payment_method_type.dto';
 import { UpdatePaymentMethodTypeDto } from './dto/update-payment_method_type.dto';
+import { Repository } from 'typeorm';
 
 @Injectable()
-export class PaymentMethodTypeService {
-  create(createPaymentMethodTypeDto: CreatePaymentMethodTypeDto) {
-    return 'This action adds a new paymentMethodType';
-  }
-
-  findAll() {
-    return `This action returns all paymentMethodType`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} paymentMethodType`;
-  }
-
-  update(id: number, updatePaymentMethodTypeDto: UpdatePaymentMethodTypeDto) {
-    return `This action updates a #${id} paymentMethodType`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} paymentMethodType`;
+export class PaymentMethodTypeService extends BaseService<PaymentMethodType> {
+  constructor(
+    @InjectRepository(PaymentMethodType)
+    public repo: Repository<PaymentMethodType>,
+  ) {
+    super(repo);
   }
 }

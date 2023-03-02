@@ -1,12 +1,21 @@
-import { IsDate, MaxDate, Allow, IsNotEmpty } from 'class-validator';
+import {
+  Allow,
+  IsNotEmpty,
+  IsOptional,
+  MinDate,
+  IsDateString,
+} from 'class-validator';
 export class CreateReminderDto {
-  @IsDate()
-  @MaxDate(new Date(Date.now()))
+  @IsDateString()
+  @MinDate(new Date('2023-02-02'))
   date: Date;
 
   @Allow()
   message: string;
 
   @IsNotEmpty()
-  creditLoanId: string;
+  credit_loan_id: string;
+
+  @IsOptional()
+  payment_methods: string[];
 }

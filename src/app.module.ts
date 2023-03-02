@@ -25,7 +25,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
+        type: 'mysql',
         host: process.env.PGHOST || configService.get('database.host'),
         port: +process.env.PGPORT || +configService.get('database.port'),
         username: process.env.PGUSER || configService.get('database.username'),

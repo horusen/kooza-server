@@ -8,5 +8,6 @@ import { CreditLoanStatusController } from './credit-loan-status.controller';
   imports: [TypeOrmModule.forFeature([CreditLoanStatus])],
   controllers: [CreditLoanStatusController],
   providers: [CreditLoanStatusService],
+  exports: [CreditLoanStatusService],
 })
 export class CreditLoanStatusModule {}

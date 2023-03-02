@@ -6,16 +6,26 @@ import { BaseEntity } from 'src/shared/entities/base.entity';
 
 @Entity()
 export class CreditLoan extends BaseEntity {
-  @JoinColumn({ name: 'business_id' })
+  @Column()
+  business_id: string;
+
+  @Column()
+  customer_id: string;
+
+  @Column()
+  credit_loan_status_id: string;
+
+  @Column({ name: 'due_date' })
+  due_date: Date;
+
+  @Column({ type: 'decimal' })
+  amount: number;
+
   @ManyToOne(() => Business, (business: Business) => business.id)
   business: Business;
 
-  @JoinColumn({ name: 'customer_id' })
   @ManyToOne(() => Customer, (customer: Customer) => customer.id)
   customer: Customer;
-
-  @Column({ name: 'due_date', type: 'timestamptz' })
-  dueDate: Date;
 
   @JoinColumn({ name: 'credit_loan_status_id' })
   @ManyToOne(
