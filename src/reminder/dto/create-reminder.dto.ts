@@ -6,8 +6,9 @@ import {
   IsDateString,
 } from 'class-validator';
 export class CreateReminderDto {
+  // TODO: add a validator that ensures the date minimum date is today
   @IsDateString()
-  @MinDate(new Date('2023-02-02'))
+  // @MinDate(new Date('2023-02-02'))
   date: Date;
 
   @Allow()

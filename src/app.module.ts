@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -56,6 +57,8 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
     CreditLoanModule,
 
     CreditLoanStatusModule,
+
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

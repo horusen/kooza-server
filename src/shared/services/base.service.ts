@@ -15,16 +15,18 @@ export class BaseService<Entity> {
     return this.repo.find();
   }
 
-  async findOne(id: any) {
-    //@ts-expect-error
-    const element = await this.repo.findOneBy({ id });
-
-    if (!element) throw new NotFoundException();
+  async findOne(id: string | Partial<Entity>) {
+    const element =
+      typeof id === 'string'
+        ? //@ts-expect-error
+          await this.repo.findOne({ id })
+        : //@ts-expect-error
+          await this.repo.findOneBy(id);
 
     return element;
   }
 
-  async update(id: any, updateDTO: any) {
+  async update(id: string, updateDTO: any) {
     //@ts-expect-error
     const element = await this.repo.findOneBy({ id });
     this.repo.merge(element, updateDTO);
