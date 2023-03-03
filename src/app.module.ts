@@ -15,6 +15,7 @@ import { PaymentMethodTypeModule } from './payment_method_type/payment_method_ty
 import { CreditLoanModule } from './credit-loan/credit-loan.module';
 import { CreditLoanStatusModule } from './credit-loan-status/credit-loan-status.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { CustomMessageModule } from './custom-message/custom-message.module';
 
 @Module({
   imports: [
@@ -27,13 +28,14 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
-        host: process.env.PGHOST || configService.get('database.host'),
-        port: +process.env.PGPORT || +configService.get('database.port'),
-        username: process.env.PGUSER || configService.get('database.username'),
+        host: process.env.MYSQLHOST || configService.get('database.host'),
+        port: +process.env.MYSQLPORT || +configService.get('database.port'),
+        username:
+          process.env.MYSQLUSER || configService.get('database.username'),
         password:
-          process.env.PGPASSWORD || configService.get('database.password'),
+          process.env.MYSQLPASSWORD || configService.get('database.password'),
         database:
-          process.env.PGDATABASE || configService.get('database.database'),
+          process.env.MYSQLDATABASE || configService.get('database.database'),
         entities: [],
         synchronize: true,
         autoLoadEntities: true,
@@ -59,6 +61,8 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
     CreditLoanStatusModule,
 
     AuthModule,
+
+    CustomMessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

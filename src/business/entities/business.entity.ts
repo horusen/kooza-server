@@ -10,6 +10,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { BusinessType } from 'src/business-type/entities/business-type.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Business extends BaseEntity {
@@ -29,12 +30,13 @@ export class Business extends BaseEntity {
   identifier: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @ManyToOne((type) => BusinessType, (business_type) => business_type.id, {
     eager: true,
   })
-  businessType: BusinessType;
+  business_type: BusinessType;
 
   @ManyToMany(() => PaymentMethod, { eager: true, nullable: true })
   @JoinTable({
@@ -43,5 +45,5 @@ export class Business extends BaseEntity {
     name: 'payment_method_business',
     synchronize: false,
   } as JoinTableOptions)
-  paymentMethods: PaymentMethod[];
+  payment_methods: PaymentMethod[];
 }

@@ -7,8 +7,9 @@ import { Repository } from 'typeorm';
 export class BaseService<Entity> {
   constructor(public repo: Repository<Entity>) {}
 
-  create(createDTO: any) {
-    return this.repo.save(createDTO);
+  async create(createDTO: any) {
+    const element = await this.repo.save(createDTO);
+    return this.findOne(element.id);
   }
 
   findAll() {
@@ -19,7 +20,7 @@ export class BaseService<Entity> {
     const element =
       typeof id === 'string'
         ? //@ts-expect-error
-          await this.repo.findOne({ id })
+          await this.repo.findOneBy({ id })
         : //@ts-expect-error
           await this.repo.findOneBy(id);
 
