@@ -19,6 +19,12 @@ export class CreditLoanService extends BaseService<CreditLoan> {
     super(repo);
   }
 
+  findAll() {
+    return this.repo.find({
+      order: { credit_loan_status_id: 'DESC', due_date: 'ASC' },
+    });
+  }
+
   async create(createDTO: any) {
     const customerData = createDTO.customer;
     let customer = await this.customerService.findOneByPhoneNumber(
@@ -29,19 +35,22 @@ export class CreditLoanService extends BaseService<CreditLoan> {
       customer = await this.customerService.create(customerData);
     }
 
-    const creditLoanStatusID = (await this.creditLoanStatusService.findFirst())
-      .id;
+    const creditLoanStatusID = (
+      await this.creditLoanStatusService.findOne({ name: 'Unpaid' })
+    ).id;
 
     console.log(creditLoanStatusID);
 
     const creditLoan = new CreditLoan();
     creditLoan.amount = createDTO.amount;
     creditLoan.business_id = createDTO.business_id;
+    creditLoan.description = createDTO.description;
     creditLoan.due_date = createDTO.due_date;
     creditLoan.credit_loan_status_id = creditLoanStatusID;
     creditLoan.customer_id = customer.id;
 
-    return this.repo.save(creditLoan);
+    const savedCredit = await this.repo.save(creditLoan);
+    return this.findOne(savedCredit.id);
   }
 
   // TODO: Enable users to edit

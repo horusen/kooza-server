@@ -15,6 +15,7 @@ import { PaymentMethodTypeModule } from './payment_method_type/payment_method_ty
 import { CreditLoanModule } from './credit-loan/credit-loan.module';
 import { CreditLoanStatusModule } from './credit-loan-status/credit-loan-status.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { CustomMessageModule } from './custom-message/custom-message.module';
 
 @Module({
   imports: [
@@ -59,6 +60,8 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
     CreditLoanStatusModule,
 
     AuthModule,
+
+    CustomMessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

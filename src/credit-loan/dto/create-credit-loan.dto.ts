@@ -4,6 +4,7 @@ import {
   IsDate,
   ValidateNested,
   IsDateString,
+  IsOptional,
 } from 'class-validator';
 import { CreateCustomerDto } from 'src/customer/dto/create-customer.dto';
 export class CreateCreditLoanDto {
@@ -20,4 +21,7 @@ export class CreateCreditLoanDto {
 
   @IsDateString()
   due_date: Date;
+
+  @IsOptional()
+  description: string;
 }

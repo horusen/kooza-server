@@ -22,7 +22,7 @@ export class Reminder extends BaseEntity {
   maessage: string;
 
   @ManyToOne(() => CreditLoan, (creditLoan) => creditLoan.id, {})
-  creditLoan: CreditLoan;
+  credit_loan: CreditLoan;
 
   @ManyToMany(() => PaymentMethod)
   @JoinTable({
@@ -31,5 +31,5 @@ export class Reminder extends BaseEntity {
     name: 'payment_method_reminder',
     synchronize: false,
   } as JoinTableOptions)
-  paymentMethods: PaymentMethod[];
+  payment_methods: PaymentMethod[];
 }

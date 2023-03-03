@@ -18,19 +18,25 @@ export class CreditLoan extends BaseEntity {
   @Column({ name: 'due_date' })
   due_date: Date;
 
+  @Column({ type: 'text', nullable: true })
+  description: string;
+
   @Column({ type: 'decimal' })
   amount: number;
 
   @ManyToOne(() => Business, (business: Business) => business.id)
   business: Business;
 
-  @ManyToOne(() => Customer, (customer: Customer) => customer.id)
+  @ManyToOne(() => Customer, (customer: Customer) => customer.id, {
+    eager: true,
+  })
   customer: Customer;
 
   @JoinColumn({ name: 'credit_loan_status_id' })
   @ManyToOne(
     () => CreditLoanStatus,
     (credit_loan_status: CreditLoanStatus) => credit_loan_status.id,
+    { eager: true },
   )
-  creditLoanStatus: CreditLoanStatus;
+  credit_loan_status: CreditLoanStatus;
 }
