@@ -1,3 +1,4 @@
+import { MessagingModule } from './shared/messaging/messaging.module';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -63,6 +64,8 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
     AuthModule,
 
     CustomMessageModule,
+
+    MessagingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
