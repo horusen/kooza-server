@@ -1,3 +1,4 @@
+import { MessagingModule } from './shared/messaging/messaging.module';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -16,6 +17,7 @@ import { CreditLoanModule } from './credit-loan/credit-loan.module';
 import { CreditLoanStatusModule } from './credit-loan-status/credit-loan-status.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { CustomMessageModule } from './custom-message/custom-message.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -24,6 +26,7 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
       load: [configuration],
       cache: true,
     }),
+
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -44,6 +47,8 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
       inject: [ConfigService],
     }),
 
+    ScheduleModule.forRoot(),
+
     BusinessModule,
 
     BusinessTypeModule,
@@ -63,6 +68,8 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
     AuthModule,
 
     CustomMessageModule,
+
+    MessagingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
