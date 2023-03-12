@@ -18,7 +18,6 @@ import { CreditLoanStatusModule } from './credit-loan-status/credit-loan-status.
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { CustomMessageModule } from './custom-message/custom-message.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TasksService } from './tasks/tasks.service';
 
 @Module({
   imports: [
@@ -73,6 +72,6 @@ import { TasksService } from './tasks/tasks.service';
     MessagingModule,
   ],
   controllers: [AppController],
-  providers: [AppService, TasksService],
+  providers: [AppService],
 })
 export class AppModule {}
