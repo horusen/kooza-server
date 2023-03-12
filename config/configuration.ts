@@ -14,7 +14,7 @@ export default () => ({
   messaging: {
     providerName: 'twilio',
     providerPhoneNumber: '+14155238886',
-    personalPhoneNumber: '+233201346890',
+    personalPhoneNumber: '+221772884035',
     accountId: 'AC8cdb70b17e4fc837abc79d452705d578',
     authToken: '8cd089951bd03828238354709efd17e8',
   },

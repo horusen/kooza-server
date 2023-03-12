@@ -17,6 +17,8 @@ import { CreditLoanModule } from './credit-loan/credit-loan.module';
 import { CreditLoanStatusModule } from './credit-loan-status/credit-loan-status.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { CustomMessageModule } from './custom-message/custom-message.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TasksService } from './tasks/tasks.service';
 
 @Module({
   imports: [
@@ -25,6 +27,7 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
       load: [configuration],
       cache: true,
     }),
+
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -44,6 +47,8 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
       }),
       inject: [ConfigService],
     }),
+
+    ScheduleModule.forRoot(),
 
     BusinessModule,
 
@@ -68,6 +73,6 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
     MessagingModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TasksService],
 })
 export class AppModule {}
