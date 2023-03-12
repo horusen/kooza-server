@@ -13,17 +13,18 @@ export class MessagingService {
     );
   }
 
-  sendWhatsappMessage() {
-    this._sendMessage('whatsapp:');
+  sendWhatsappMessage(message: string) {
+    this._sendMessage('whatsapp:', message);
   }
 
-  private _sendMessage(prefix: string) {
+  private _sendMessage(prefix: string, message: string) {
+    if (!prefix) prefix = '';
     this._client.messages.create({
       to:
         prefix + this.configService.getOrThrow('messaging.personalPhoneNumber'),
       from:
         prefix + this.configService.getOrThrow('messaging.providerPhoneNumber'),
-      body: 'Sending a message from KOOZA successfully done!',
+      body: message || 'Sending a message from KOOZA successfully done!',
     });
   }
 }
