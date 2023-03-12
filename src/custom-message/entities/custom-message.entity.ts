@@ -9,5 +9,5 @@ export class CustomMessage extends BaseEntity {
   message: string;
 
   @Column()
-  busines_id: string;
+  business_id: string;
 }

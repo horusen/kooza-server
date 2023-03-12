@@ -20,7 +20,7 @@ export class AppController {
   @Get('set-reminder')
   setReminder() {
     const job = new CronJob(new Date('2023-03-12T14:38'), () => {
-      this.messagingService.sendWhatsappMessage();
+      // this.messagingService.sendWhatsappMessage();
     });
 
     this.schedulerRegistry.addCronJob('reminder', job);
@@ -33,7 +33,7 @@ export class AppController {
 
   @Get('send-message')
   sendMessage(): string {
-    this.messagingService.sendWhatsappMessage();
-    return 'done';
+    // this.messagingService.sendWhatsappMessage();
+    return 'done!';
   }
 }

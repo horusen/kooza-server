@@ -1,3 +1,4 @@
+import { CustomMessage } from './../../custom-message/entities/custom-message.entity';
 import { PaymentMethod } from './../../payment_method/entities/payment_method.entity';
 import { CreditLoan } from './../../credit-loan/entities/credit-loan.entity';
 import {
@@ -7,6 +8,7 @@ import {
   ManyToMany,
   JoinTable,
   JoinTableOptions,
+  JoinColumn,
 } from 'typeorm';
 import { BaseEntity } from 'src/shared/entities/base.entity';
 
@@ -19,12 +21,17 @@ export class Reminder extends BaseEntity {
   date: Date;
 
   @Column({ nullable: true })
-  maessage: string;
+  custom_message_id: string;
 
+  @JoinColumn({ name: 'custom_message_id' })
+  @ManyToOne(() => CustomMessage, (customMessage) => customMessage.id, {})
+  custom_messge: CustomMessage;
+
+  @JoinColumn({ name: 'credit_loan_id' })
   @ManyToOne(() => CreditLoan, (creditLoan) => creditLoan.id, {})
   credit_loan: CreditLoan;
 
-  @ManyToMany(() => PaymentMethod)
+  @ManyToMany(() => PaymentMethod, { nullable: true, eager: true })
   @JoinTable({
     joinColumn: 'reminder_id',
     inverseJoinColumn: 'payment_method_id',

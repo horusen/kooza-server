@@ -8,5 +8,6 @@ import { CustomMessageController } from './custom-message.controller';
   controllers: [CustomMessageController],
   providers: [CustomMessageService],
   imports: [TypeOrmModule.forFeature([CustomMessage])],
+  exports: [CustomMessageService],
 })
 export class CustomMessageModule {}

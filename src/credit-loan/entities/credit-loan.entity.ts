@@ -1,7 +1,15 @@
+import { Reminder } from './../../reminder/entities/reminder.entity';
 import { CreditLoanStatus } from './../../credit-loan-status/entities/credit-loan-status.entity';
 import { Customer } from './../../customer/entities/customer.entity';
 import { Business } from './../../business/entities/business.entity';
-import { Column, Entity, Timestamp, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Timestamp,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { BaseEntity } from 'src/shared/entities/base.entity';
 
 @Entity()
@@ -39,4 +47,9 @@ export class CreditLoan extends BaseEntity {
     { eager: true },
   )
   credit_loan_status: CreditLoanStatus;
+
+  @OneToMany(() => Reminder, (reminder: Reminder) => reminder.credit_loan, {
+    eager: true,
+  })
+  reminders: Reminder[];
 }

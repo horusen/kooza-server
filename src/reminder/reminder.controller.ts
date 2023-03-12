@@ -15,6 +15,11 @@ import { UpdateReminderDto } from './dto/update-reminder.dto';
 export class ReminderController {
   constructor(private readonly reminderService: ReminderService) {}
 
+  // @Post('add')
+  // async add(@Body() addReminderDTO: AddReminderDto) {
+  //   // return this.reminderService.add(addReminderDTO);
+  // }
+
   @Post()
   create(@Body() createReminderDto: CreateReminderDto) {
     return this.reminderService.create(createReminderDto);

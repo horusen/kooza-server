@@ -12,7 +12,7 @@ export class CreateReminderDto {
   date: Date;
 
   @Allow()
-  message: string;
+  custom_message_id: string;
 
   @IsNotEmpty()
   credit_loan_id: string;
