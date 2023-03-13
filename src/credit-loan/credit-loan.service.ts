@@ -8,6 +8,7 @@ import { UpdateCreditLoanDto } from './dto/update-credit-loan.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { HttpException } from '@nestjs/common';
+import { MessagingService } from 'src/shared/messaging/messaging.service';
 
 @Injectable()
 export class CreditLoanService extends BaseService<CreditLoan> {
@@ -16,6 +17,7 @@ export class CreditLoanService extends BaseService<CreditLoan> {
     public repo: Repository<CreditLoan>,
     public customerService: CustomerService,
     public creditLoanStatusService: CreditLoanStatusService,
+    public messagingService: MessagingService,
   ) {
     super(repo);
   }
@@ -42,6 +44,8 @@ export class CreditLoanService extends BaseService<CreditLoan> {
     this.repo.save(item);
 
     item.credit_loan_status = paidStatus;
+
+    this.messagingService.sendCreditPaidMessage(item);
 
     return item;
   }
@@ -71,6 +75,9 @@ export class CreditLoanService extends BaseService<CreditLoan> {
     creditLoan.customer_id = customer.id;
 
     const savedCredit = await this.repo.save(creditLoan);
+
+    this.messagingService.sendCreditTakenMessage(savedCredit);
+
     return this.findOne(savedCredit.id);
   }
 

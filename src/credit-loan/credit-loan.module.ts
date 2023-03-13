@@ -1,3 +1,4 @@
+import { MessagingModule } from 'src/shared/messaging/messaging.module';
 import { CreditLoanStatusModule } from './../credit-loan-status/credit-loan-status.module';
 import { CustomerService } from './../customer/customer.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,6 +13,7 @@ import { CustomerModule } from 'src/customer/customer.module';
     TypeOrmModule.forFeature([CreditLoan]),
     CustomerModule,
     CreditLoanStatusModule,
+    MessagingModule,
   ],
   controllers: [CreditLoanController],
   providers: [CreditLoanService],

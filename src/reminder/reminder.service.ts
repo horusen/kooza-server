@@ -1,7 +1,6 @@
 import { MessagingService } from './../shared/messaging/messaging.service';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
-import { PaymentMethodReminder } from './entities/payment_method_reminder.entity';
 import { PaymentMethod } from './../payment_method/entities/payment_method.entity';
 import { PaymentMethodReminderService } from './payment_method_reminder.service';
 import { Injectable } from '@nestjs/common';
@@ -38,25 +37,42 @@ export class ReminderService extends BaseService<Reminder> {
       });
     });
 
-    this.sendReminderMessage(
-      reminder.id,
-      reminder.date,
-      (await this.customMessageService.findOne(reminder.custom_message_id))
-        .message,
-    );
+    const customMessage = (
+      await this.customMessageService.findOne(reminder.custom_message_id)
+    ).message;
+
+    const message = payment_method_ids.length
+      ? this.customizeMessage(
+          customMessage,
+          await this.paymentMethodService.findOne(payment_method_ids[0]),
+        )
+      : customMessage;
+
+    this.sendReminderMessage(reminder.id, reminder.date, message);
 
     return reminder;
   }
 
   sendReminderMessage(name: string, date: Date, message: string) {
-    const job = new CronJob(new Date(date), () => {
-      this.messagingService.sendWhatsappMessage(message);
-      console.log('Delivered');
-    });
+    this.messagingService.sendWhatsappMessage(message);
+    // const job = new CronJob(new Date(date), () => {
+    //   this.messagingService.sendWhatsappMessage(message);
+    //   console.log('Delivered');
+    // });
 
-    this.schedulerRegistry.addCronJob(name, job);
-    job.start();
+    // this.schedulerRegistry.addCronJob(name, job);
+    // job.start();
 
     return 'Done';
+  }
+
+  customizeMessage(message: string, paymentMethod: PaymentMethod) {
+    return `${message}
+
+
+  *Payment methods*:
+  - Provider name: ${paymentMethod.provider_name}
+  - Account number: ${paymentMethod.account_number}
+    `;
   }
 }

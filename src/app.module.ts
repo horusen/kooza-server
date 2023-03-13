@@ -1,3 +1,5 @@
+import { MessagingModule } from 'src/shared/messaging/messaging.module';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -44,6 +46,8 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
       inject: [ConfigService],
     }),
 
+    ScheduleModule.forRoot(),
+
     BusinessModule,
 
     BusinessTypeModule,
@@ -63,6 +67,7 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
     AuthModule,
 
     CustomMessageModule,
+    MessagingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
