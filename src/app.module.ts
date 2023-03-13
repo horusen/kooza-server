@@ -1,4 +1,3 @@
-import { MessagingModule } from './shared/messaging/messaging.module';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -17,7 +16,6 @@ import { CreditLoanModule } from './credit-loan/credit-loan.module';
 import { CreditLoanStatusModule } from './credit-loan-status/credit-loan-status.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { CustomMessageModule } from './custom-message/custom-message.module';
-import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -26,21 +24,18 @@ import { ScheduleModule } from '@nestjs/schedule';
       load: [configuration],
       cache: true,
     }),
-
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
-        host: process.env.DATABASE_HOST || configService.get('database.host'),
-        port: +process.env.DATABASE_POST || +configService.get('database.port'),
+        host: process.env.MYSQLHOST || configService.get('database.host'),
+        port: +process.env.MYSQLPORT || +configService.get('database.port'),
         username:
-          process.env.DATABASE_USERNAME ||
-          configService.get('database.username'),
+          process.env.MYSQLUSER || configService.get('database.username'),
         password:
-          process.env.DATABASE_PASSWORD ||
-          configService.get('database.password'),
+          process.env.MYSQLPASSWORD || configService.get('database.password'),
         database:
-          process.env.DATABASE_NAME || configService.get('database.database'),
+          process.env.MYSQLDATABASE || configService.get('database.database'),
         entities: [],
         synchronize: true,
         autoLoadEntities: true,
@@ -48,8 +43,6 @@ import { ScheduleModule } from '@nestjs/schedule';
       }),
       inject: [ConfigService],
     }),
-
-    ScheduleModule.forRoot(),
 
     BusinessModule,
 
@@ -70,8 +63,6 @@ import { ScheduleModule } from '@nestjs/schedule';
     AuthModule,
 
     CustomMessageModule,
-
-    MessagingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
