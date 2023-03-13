@@ -30,6 +30,11 @@ export class CreditLoanController {
     return this.creditLoanService.findOne(id);
   }
 
+  @Post('mark-as-paid')
+  markAsPaid(@Body() elements: { credit_loan_id: string }) {
+    return this.creditLoanService.markAsPaid(elements.credit_loan_id);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -41,5 +46,10 @@ export class CreditLoanController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.creditLoanService.remove(id);
+  }
+
+  @Get(':id/reminder')
+  getReminders(@Param('id') id: string) {
+    return this.creditLoanService.findReminders(id);
   }
 }

@@ -18,5 +18,5 @@ export class CreateReminderDto {
   credit_loan_id: string;
 
   @IsOptional()
-  payment_methods: string[];
+  payment_method_ids: string[];
 }

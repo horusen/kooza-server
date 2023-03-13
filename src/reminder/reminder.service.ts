@@ -27,11 +27,11 @@ export class ReminderService extends BaseService<Reminder> {
   }
 
   async create(createDTO: any) {
-    const { payment_methods, ...reminderData } = createDTO;
+    const { payment_method_ids, ...reminderData } = createDTO;
 
     const reminder = await this.repo.save(reminderData);
 
-    payment_methods.forEach(async (element: PaymentMethod) => {
+    payment_method_ids.forEach(async (element: PaymentMethod) => {
       await this.paymentMethodReminderService.create({
         payment_method_id: element,
         reminder_id: reminder.id,

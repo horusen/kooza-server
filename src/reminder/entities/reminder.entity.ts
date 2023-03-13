@@ -24,8 +24,10 @@ export class Reminder extends BaseEntity {
   custom_message_id: string;
 
   @JoinColumn({ name: 'custom_message_id' })
-  @ManyToOne(() => CustomMessage, (customMessage) => customMessage.id, {})
-  custom_messge: CustomMessage;
+  @ManyToOne(() => CustomMessage, (customMessage) => customMessage.id, {
+    eager: true,
+  })
+  custom_message: CustomMessage;
 
   @JoinColumn({ name: 'credit_loan_id' })
   @ManyToOne(() => CreditLoan, (creditLoan) => creditLoan.id, {})

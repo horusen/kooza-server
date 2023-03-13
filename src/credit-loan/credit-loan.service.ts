@@ -7,6 +7,7 @@ import { CreateCreditLoanDto } from './dto/create-credit-loan.dto';
 import { UpdateCreditLoanDto } from './dto/update-credit-loan.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { HttpException } from '@nestjs/common';
 
 @Injectable()
 export class CreditLoanService extends BaseService<CreditLoan> {
@@ -23,6 +24,26 @@ export class CreditLoanService extends BaseService<CreditLoan> {
     return this.repo.find({
       order: { credit_loan_status_id: 'DESC', due_date: 'ASC' },
     });
+  }
+
+  async markAsPaid(id: string) {
+    const item = await this.findOne(id);
+    console.log(item);
+
+    if (!item) throw new HttpException('Credit not found', 404);
+
+    const paidStatus = await this.creditLoanStatusService.findOne({
+      name: 'Paid',
+    });
+
+    if (!paidStatus) throw new HttpException('Credit status not found', 404);
+
+    item.credit_loan_status_id = paidStatus.id;
+    this.repo.save(item);
+
+    item.credit_loan_status = paidStatus;
+
+    return item;
   }
 
   async create(createDTO: any) {
@@ -51,6 +72,14 @@ export class CreditLoanService extends BaseService<CreditLoan> {
 
     const savedCredit = await this.repo.save(creditLoan);
     return this.findOne(savedCredit.id);
+  }
+
+  async findReminders(id: string) {
+    const element = await this.repo.findOne({
+      where: { id },
+      relations: { reminders: true },
+    });
+    return element.reminders;
   }
 
   // TODO: Enable users to edit
