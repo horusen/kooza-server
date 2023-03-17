@@ -18,6 +18,7 @@ import { CreditLoanModule } from './credit-loan/credit-loan.module';
 import { CreditLoanStatusModule } from './credit-loan-status/credit-loan-status.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { CustomMessageModule } from './custom-message/custom-message.module';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -30,20 +31,18 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
-        host: process.env.MYSQLHOST || configService.get('database.host'),
-        port: +process.env.MYSQLPORT || +configService.get('database.port'),
-        username:
-          process.env.MYSQLUSER || configService.get('database.username'),
-        password:
-          process.env.MYSQLPASSWORD || configService.get('database.password'),
-        database:
-          process.env.MYSQLDATABASE || configService.get('database.database'),
+        url: configService.get('database.uri'),
         entities: [],
+        migrations: ['dist/database/migration/*.js'],
         synchronize: true,
         autoLoadEntities: true,
         namingStrategy: new SnakeNamingStrategy(),
       }),
       inject: [ConfigService],
+      dataSourceFactory: async (options) => {
+        const dataSource = await new DataSource(options).initialize();
+        return dataSource;
+      },
     }),
 
     ScheduleModule.forRoot(),

@@ -10,6 +10,7 @@ export default () => ({
     username: 'root',
     password: '',
     database: 'kooza',
+    uri: process.env.CLEARDB_DATABASE_URL || process.env.TYPEORM_URI,
   },
   messaging: {
     providerName: 'twilio',
