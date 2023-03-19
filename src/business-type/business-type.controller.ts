@@ -13,6 +13,7 @@ import {
 import { BusinessTypeService } from './business-type.service';
 import { CreateBusinessTypeDto } from './dto/create-business-type.dto';
 import { UpdateBusinessTypeDto } from './dto/update-business-type.dto';
+import { Public } from 'src/shared/decorators/public.decorator';
 
 @Controller('business-type')
 export class BusinessTypeController {
@@ -23,6 +24,7 @@ export class BusinessTypeController {
     return this.businessTypeService.create(createBusinessTypeDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.businessTypeService.findAll();

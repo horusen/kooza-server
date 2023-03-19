@@ -13,7 +13,9 @@ import { AuthGuard } from '@nestjs/passport';
 
 import { AuthService } from './auth.service';
 import { GoogleOauthGuard } from './guard/google-oauth/google-oauth.guard';
+import { Public } from 'src/shared/decorators/public.decorator';
 
+@Public()
 @Controller('auth')
 export class AuthController {
   constructor(public authService: AuthService) {}

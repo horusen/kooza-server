@@ -19,6 +19,8 @@ import { CreditLoanStatusModule } from './credit-loan-status/credit-loan-status.
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { CustomMessageModule } from './custom-message/custom-message.module';
 import { DataSource } from 'typeorm';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtOauthGuard } from './auth/guard/jwt-oauth/jwt-oauth.guard';
 
 @Module({
   imports: [
@@ -69,6 +71,12 @@ import { DataSource } from 'typeorm';
     MessagingModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtOauthGuard,
+    },
+  ],
 })
 export class AppModule {}
