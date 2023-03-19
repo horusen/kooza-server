@@ -32,10 +32,12 @@ export class AuthService {
 
     const hashedPassword = this.hashPassword(business.password);
 
-    return this.businessService.create({
+    this.businessService.create({
       ...business,
       password: hashedPassword,
     });
+
+    return await this.signin(business.identifier, business.password);
   }
 
   public async signin(identifier: string, password: string) {
