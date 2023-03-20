@@ -24,7 +24,7 @@ export class CreditLoanService extends BaseService<CreditLoan> {
 
   findAll() {
     return this.repo.find({
-      order: { credit_loan_status_id: 'DESC', due_date: 'ASC' },
+      order: { credit_loan_status: { created_at: 'DESC' }, due_date: 'ASC' },
     });
   }
 
