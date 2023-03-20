@@ -67,12 +67,7 @@ export class ReminderService extends BaseService<Reminder> {
   }
 
   customizeMessage(message: string, paymentMethod: PaymentMethod) {
-    return `${message}
-
-
-  *Payment methods*:
-  - Provider name: ${paymentMethod.provider_name}
-  - Account number: ${paymentMethod.account_number}
+    return `${message}\n\n*Payment methods*:\n- Provider name: ${paymentMethod.provider_name}\n- Account number: ${paymentMethod.account_number}
     `;
   }
 }

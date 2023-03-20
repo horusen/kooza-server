@@ -29,8 +29,10 @@ export class CreditLoanService extends BaseService<CreditLoan> {
   }
 
   async markAsPaid(id: string) {
-    const item = await this.findOne(id);
-    console.log(item);
+    const item = await this.repo.findOneOrFail({
+      where: { id },
+      relations: { customer: true, business: true },
+    });
 
     if (!item) throw new HttpException('Credit not found', 404);
 
@@ -63,17 +65,25 @@ export class CreditLoanService extends BaseService<CreditLoan> {
     creditLoan.credit_loan_status_id = creditLoanStatusID;
     creditLoan.customer_id = createDTO.customer_id;
 
-    const savedCredit = await this.repo.save(creditLoan);
+    const savedCreditID = (await this.repo.save(creditLoan)).id;
 
     createDTO.items.forEach(
       async (item: { product_id: string; quantity: number }) => {
         await this.creditLoanItemService.create({
-          credit_loan_id: savedCredit.id,
+          credit_loan_id: savedCreditID,
           quantity: item.quantity,
           product_id: item.product_id,
         });
       },
     );
+
+    const savedCredit = await this.repo.findOneOrFail({
+      where: { id: savedCreditID },
+      relations: {
+        customer: true,
+        business: true,
+      },
+    });
 
     this.messagingService.sendCreditTakenMessage(savedCredit);
 
