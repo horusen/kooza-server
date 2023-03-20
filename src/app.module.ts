@@ -21,6 +21,7 @@ import { CustomMessageModule } from './custom-message/custom-message.module';
 import { DataSource } from 'typeorm';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtOauthGuard } from './auth/guard/jwt-oauth/jwt-oauth.guard';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { JwtOauthGuard } from './auth/guard/jwt-oauth/jwt-oauth.guard';
 
     CustomMessageModule,
     MessagingModule,
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [

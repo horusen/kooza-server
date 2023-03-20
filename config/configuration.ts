@@ -16,7 +16,7 @@ export default () => ({
     providerName: 'twilio',
     providerPhoneNumber: '+14155238886',
     personalPhoneNumber: '+221772884035',
-    accountId: 'AC8cdb70b17e4fc837abc79d452705d578',
-    authToken: '6cac4f7d8db45e0249917bc4b8bd65f0',
+    accountId: process.env.TWILIO_ACCOUNT_ID,
+    authToken: process.env.TWILIO_AUTH_TOKEN,
   },
 });

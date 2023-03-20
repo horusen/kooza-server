@@ -16,4 +16,8 @@ export class CustomerService extends BaseService<Customer> {
   async findOneByPhoneNumber(phone_number: any) {
     return await this.repo.findOneBy({ phone_number });
   }
+
+  async getByBusinessId(business_id: string) {
+    return await this.repo.find({ where: { business_id } });
+  }
 }

@@ -1,20 +1,25 @@
 import { Type } from 'class-transformer';
 import {
   IsNotEmpty,
-  IsDate,
   ValidateNested,
   IsDateString,
   IsOptional,
 } from 'class-validator';
-import { CreateCustomerDto } from 'src/customer/dto/create-customer.dto';
+
+class ItemDTO {
+  @IsNotEmpty()
+  product_id: string;
+
+  @IsNotEmpty()
+  quantity: number;
+}
+
 export class CreateCreditLoanDto {
   @IsNotEmpty()
   business_id: string;
 
   @IsNotEmpty()
-  @ValidateNested()
-  @Type(() => CreateCustomerDto)
-  customer: CreateCustomerDto;
+  customer_id: string;
 
   @IsNotEmpty()
   amount: number;
@@ -24,4 +29,9 @@ export class CreateCreditLoanDto {
 
   @IsOptional()
   description: string;
+
+  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => ItemDTO)
+  items: ItemDTO[];
 }

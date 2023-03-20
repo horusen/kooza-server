@@ -14,4 +14,7 @@ export class Customer extends BaseEntity {
 
   @Column({ unique: true, nullable: true })
   nin: string;
+
+  @Column()
+  business_id: string;
 }

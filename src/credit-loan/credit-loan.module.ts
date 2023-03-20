@@ -1,6 +1,7 @@
+import { CreditLoanItemService } from './credit-loan-item.service';
+import { CreditLoanItem } from './entities/credit-loan-item.entity';
 import { MessagingModule } from 'src/shared/messaging/messaging.module';
 import { CreditLoanStatusModule } from './../credit-loan-status/credit-loan-status.module';
-import { CustomerService } from './../customer/customer.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { CreditLoanService } from './credit-loan.service';
@@ -10,12 +11,12 @@ import { CustomerModule } from 'src/customer/customer.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([CreditLoan]),
+    TypeOrmModule.forFeature([CreditLoan, CreditLoanItem]),
     CustomerModule,
     CreditLoanStatusModule,
     MessagingModule,
   ],
   controllers: [CreditLoanController],
-  providers: [CreditLoanService],
+  providers: [CreditLoanService, CreditLoanItemService],
 })
 export class CreditLoanModule {}

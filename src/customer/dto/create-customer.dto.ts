@@ -10,7 +10,7 @@ export class CreateCustomerDto {
   name: string;
 
   @IsOptional()
-  @IsPhoneNumber('GH')
+  // @IsPhoneNumber('GH')
   phone_number: string;
 
   @IsOptional()
@@ -19,4 +19,7 @@ export class CreateCustomerDto {
 
   @IsOptional()
   nin: string;
+
+  @IsNotEmpty()
+  business_id: string;
 }

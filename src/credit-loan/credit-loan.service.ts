@@ -3,12 +3,11 @@ import { CustomerService } from './../customer/customer.service';
 import { BaseService } from 'src/shared/services/base.service';
 import { CreditLoan } from './entities/credit-loan.entity';
 import { Injectable } from '@nestjs/common';
-import { CreateCreditLoanDto } from './dto/create-credit-loan.dto';
-import { UpdateCreditLoanDto } from './dto/update-credit-loan.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { HttpException } from '@nestjs/common';
 import { MessagingService } from 'src/shared/messaging/messaging.service';
+import { CreditLoanItemService } from './credit-loan-item.service';
 
 @Injectable()
 export class CreditLoanService extends BaseService<CreditLoan> {
@@ -18,6 +17,7 @@ export class CreditLoanService extends BaseService<CreditLoan> {
     public customerService: CustomerService,
     public creditLoanStatusService: CreditLoanStatusService,
     public messagingService: MessagingService,
+    public creditLoanItemService: CreditLoanItemService,
   ) {
     super(repo);
   }
@@ -51,20 +51,9 @@ export class CreditLoanService extends BaseService<CreditLoan> {
   }
 
   async create(createDTO: any) {
-    const customerData = createDTO.customer;
-    let customer = await this.customerService.findOneByPhoneNumber(
-      customerData.phone_number,
-    );
-
-    if (!customer) {
-      customer = await this.customerService.create(customerData);
-    }
-
     const creditLoanStatusID = (
       await this.creditLoanStatusService.findOne({ name: 'Unpaid' })
     ).id;
-
-    console.log(creditLoanStatusID);
 
     const creditLoan = new CreditLoan();
     creditLoan.amount = createDTO.amount;
@@ -72,9 +61,19 @@ export class CreditLoanService extends BaseService<CreditLoan> {
     creditLoan.description = createDTO.description;
     creditLoan.due_date = createDTO.due_date;
     creditLoan.credit_loan_status_id = creditLoanStatusID;
-    creditLoan.customer_id = customer.id;
+    creditLoan.customer_id = createDTO.customer_id;
 
     const savedCredit = await this.repo.save(creditLoan);
+
+    createDTO.items.forEach(
+      async (item: { product_id: string; quantity: number }) => {
+        await this.creditLoanItemService.create({
+          credit_loan_id: savedCredit.id,
+          quantity: item.quantity,
+          product_id: item.product_id,
+        });
+      },
+    );
 
     this.messagingService.sendCreditTakenMessage(savedCredit);
 
