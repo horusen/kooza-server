@@ -18,9 +18,8 @@ export class MessagingService {
     this._sendMessage('whatsapp:', message);
   }
 
-  sendCreditTakenMessage(credit: CreditLoan) {
-    const message = `Congratulations! you've just taken ${credit.amount} GHC on credit from Asante & Asante Limited. Don't forget to pay before ${credit.due_date}.
-    Message sent by kooza`;
+  sendCreditTakenMessage(credit?: CreditLoan) {
+    const message = `Congratulations!\n\nYou've just taken *${credit?.amount}* GHC on credit from *Asante & Asante Limited*.\n\nDon't forget to pay before *${credit?.due_date}*.\n\nMessage sent by *kooza*`;
 
     this.sendWhatsappMessage(message);
   }
