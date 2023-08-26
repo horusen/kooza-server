@@ -19,7 +19,7 @@
 - **Frontend**: Angular 2
 - **Backend**: NestJS
 - **Database**: MySQL, TypeORM
-- **Email**: Nodemailer
+- **SMS**: Twilio
 - **Caching**: Redis
 - **Cloud Storage**: Amazon S3
 
