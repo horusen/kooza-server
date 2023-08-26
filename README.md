@@ -1,73 +1,70 @@
+<h1 align="center">Kooza</h1>
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <strong>Credit Management Platform for SMEs</strong>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT">
+  </a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+<p align="center">
+  Kooza is a powerful platform that enables SMEs to effortlessly record, track, and manage the credit they extend to clients. The platform empowers businesses to reduce default rates, eliminate disputes, and gain valuable insights for informed decision-making.
+</p>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## :rocket: Tech Stack
 
-## Installation
+- **Frontend**: Angular 2
+- **Backend**: NestJS
+- **Database**: MySQL, TypeORM
+- **Email**: Nodemailer
+- **Caching**: Redis
+- **Cloud Storage**: Amazon S3
 
-```bash
-$ npm install
-```
+## :sparkles: Value Propositions
 
-## Running the app
+1. **Reduced Default Rate**:
+   - Enable strategic payment plans.
+   - Increase touchpoints with payment reminders.
+   - Enforce commitment through pre-approval for garnishing.
 
-```bash
-# development
-$ npm run start
+2. **Dispute Elimination**:
+   - Provide proof of transactions to prevent disputes.
 
-# watch mode
-$ npm run start:dev
+3. **Business Insights**:
+   - Enable data-driven decisions through actionable insights.
 
-# production mode
-$ npm run start:prod
-```
+## :zap: Features
 
-## Test
+- **Credit Recording**: Effortlessly record and manage credit extended to clients.
+- **Payment Plans**: Strategically design and implement payment plans.
+- **Payment Reminders**: Boost engagement with automated payment reminders.
+- **Garnishing Commitment**: Ensure commitment through pre-approval for garnishing.
+- **Transaction Proofs**: Prevent disputes by providing irrefutable transaction proofs.
+- **Data Analytics**: Gain deep business insights through advanced data analysis.
+- **Secure Authentication**: Safeguard user data with JWT authentication.
+- **Real-time Updates**: Utilize Redis for seamless real-time data updates.
 
-```bash
-# unit tests
-$ npm run test
+## :bulb: Getting Started
 
-# e2e tests
-$ npm run test:e2e
+1. Clone this repository.
+1. Clone the frontend and follow the instructions.
+2. Install dependencies with `npm install`.
+3. Set up environment variables for database, Redis, Amazon S3, and JWT secret.
+4. Run : `npm run start:dev`.
 
-# test coverage
-$ npm run test:cov
-```
+## :octocat: Contributing
 
-## Support
+Contributions are greatly appreciated! Feel free to open issues and pull requests.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## :scroll: License
 
-## Stay in touch
+This project is licensed under the MIT License.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## :lock: Security
 
-## License
-
-Nest is [MIT licensed](LICENSE).
+- Authentication: Ensure secure user authentication with JWT.
+- Authorization: Implement access control using NEST JS guards.
+- Security Scans: Regular AWS CodeWhisperer scans ensure code integrity.
