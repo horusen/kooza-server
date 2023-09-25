@@ -16,9 +16,9 @@
 
 ## :rocket: Tech Stack
 
-- **Frontend**: Angular 2
+- **Frontend**: Angular 2, Flowbite, Tailwind, SCSS
 - **Backend**: NestJS
-- **Database**: MySQL, TypeORM
+- **Database**: MySQL, TypeORM, _<a href="https://dbdiagram.io/d/6374aa94c9abfc6111730d81">See the database modeling here</a>_
 - **Email**: Nodemailer
 - **Caching**: Redis
 - **Cloud Storage**: Amazon S3
@@ -37,7 +37,7 @@
    - Enable data-driven decisions through actionable insights.
 
 ## :zap: Features
-
+ _<a href="https://drive.google.com/file/d/1Z4senX0bQu2xFV5u0e2CtZYefmS1q5_E/view?usp=sharing">:movie_camera: See how it works here</a>_
 - **Credit Recording**: Effortlessly record and manage credit extended to clients.
 - **Payment Plans**: Strategically design and implement payment plans.
 - **Payment Reminders**: Boost engagement with automated payment reminders.
